@@ -1,6 +1,6 @@
-# Wato Motion Tracking Pipeline
+# Wato Whole Body Motion Tracking Pipeline
 
-Motion tracking pipeline adapted for the **WATonomous (Wato) humanoid robot**:
+Whole Body Motion tracking pipeline adapted for the **WATonomous (Wato) humanoid robot**:
 
 - **[GMR](https://github.com/YanjieZe/GMR)** (General Motion Retargeting): retargets human motion onto robot motion.
 - **[BeyondMimic `whole_body_tracking`](https://github.com/HybridRobotics/whole_body_tracking)**: physics-aware reinforcement learning, configured for **Isaac Sim 5.1 + Isaac Lab 2.3**, with:
