@@ -23,7 +23,7 @@ if __name__ == "__main__":
     
     parser.add_argument(
         "--format",
-        choices=["lafan1", "nokov"],
+        choices=["lafan1", "nokov", "soma"],
         default="lafan1",
     )
     
@@ -36,7 +36,7 @@ if __name__ == "__main__":
     
     parser.add_argument(
         "--robot",
-        choices=["unitree_g1", "unitree_g1_with_hands", "booster_t1", "stanford_toddy", "fourier_n1", "engineai_pm01", "pal_talos"],
+        choices=["unitree_g1", "unitree_g1_with_hands", "booster_t1", "stanford_toddy", "fourier_n1", "engineai_pm01", "pal_talos", "pioneer_humanoid"],
         default="unitree_g1",
     )
     
@@ -90,6 +90,14 @@ if __name__ == "__main__":
         tgt_robot=args.robot,
         actual_human_height=actual_human_height,
     )
+
+    # Start the robot at the first frame's root target: when the human faces away from the robot's
+    # default heading, the IK otherwise gets stuck turning it around (e.g. arms flipped over the head).
+    retargeter.update_targets(lafan1_data_frames[0])
+    root_target = retargeter.human_body_to_task2[retargeter.human_root_name].transform_target_to_world
+    init_q = retargeter.configuration.q.copy()
+    init_q[3:7], init_q[:3] = root_target.wxyz_xyz[:4], root_target.wxyz_xyz[4:]
+    retargeter.configuration.update(init_q)
 
     motion_fps = args.motion_fps
     

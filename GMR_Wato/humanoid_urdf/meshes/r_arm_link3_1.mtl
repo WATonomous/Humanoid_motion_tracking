@@ -1,0 +1,7 @@
+newmtl r_arm_link3_1
+Kd 0.9250 0.9290 0.9370
+Ka 0 0 0
+Ks 0.04 0.04 0.04
+Ns 20
+d 1
+illum 2

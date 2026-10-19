@@ -25,6 +25,7 @@ ROBOT_XML_DICT = {
     "fourier_gr3": ASSET_ROOT / "fourier_gr3v2_1_1" / "mjcf" / "gr3v2_1_1_dummy_hand.xml",
     "watonomous": ASSET_ROOT / "whole_body_humanoid" / "watonomous.xml",
     "watonomous_legs_only": ASSET_ROOT / "whole_body_humanoid" / "watonomous_legs_only.xml",
+    "pioneer_humanoid": HERE / ".." / "humanoid_urdf" / "pioneer_humanoid.xml",
 }
 
 IK_CONFIG_DICT = {
@@ -59,6 +60,9 @@ IK_CONFIG_DICT = {
     },
     "bvh_nokov":{
         "unitree_g1": IK_CONFIG_ROOT / "bvh_nokov_to_g1.json",
+    },
+    "bvh_soma":{
+        "pioneer_humanoid": IK_CONFIG_ROOT / "bvh_soma_to_pioneer_humanoid.json",
     },
     "bvh_xsens":{
         "unitree_g1": IK_CONFIG_ROOT / "bvh_xsens_to_g1.json",
@@ -104,6 +108,7 @@ ROBOT_BASE_DICT = {
     "fourier_gr3": "base_link",
     "watonomous": "base_link",
     "watonomous_legs_only": "base",
+    "pioneer_humanoid": "base_link",
 }
 
 VIEWER_CAM_DISTANCE_DICT = {
@@ -127,4 +132,5 @@ VIEWER_CAM_DISTANCE_DICT = {
     "fourier_gr3": 2.0,
     "watonomous": 2.5,
     "watonomous_legs_only": 2.5,
+    "pioneer_humanoid": 3.0,
 }

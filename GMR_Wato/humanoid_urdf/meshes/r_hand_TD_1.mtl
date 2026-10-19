@@ -1,0 +1,7 @@
+newmtl r_hand_TD_1
+Kd 0.9490 0.9490 0.9330
+Ka 0 0 0
+Ks 0.04 0.04 0.04
+Ns 20
+d 1
+illum 2

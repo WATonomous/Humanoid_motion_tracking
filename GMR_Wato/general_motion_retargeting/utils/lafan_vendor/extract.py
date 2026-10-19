@@ -61,6 +61,7 @@ def read_bvh(filename, start=None, end=None, order=None):
     orients = np.array([]).reshape((0, 4))
     offsets = np.array([]).reshape((0, 3))
     parents = np.array([], dtype=int)
+    joint_channels = []  # channel count of each joint, in file order
 
     # Parse the  file, line by line
     for line in f:
@@ -95,6 +96,7 @@ def read_bvh(filename, start=None, end=None, order=None):
         chanmatch = re.match(r"\s*CHANNELS\s+(\d+)", line)
         if chanmatch:
             channels = int(chanmatch.group(1))
+            joint_channels.append(channels)
             if order is None:
                 channelis = 0 if channels == 3 else 3
                 channelie = 3 if channels == 3 else 6
@@ -141,7 +143,15 @@ def read_bvh(filename, start=None, end=None, order=None):
             data_block = np.array(list(map(float, dmatch)))
             N = len(parents)
             fi = i - start if start else i
-            if channels == 3:
+            if len(set(joint_channels)) > 1:
+                # mixed channel counts (e.g. SOMA: Root and Hips have 6, the rest 3)
+                k = 0
+                for j, c in enumerate(joint_channels):
+                    if c == 6:
+                        positions[fi, j] = data_block[k:k + 3]
+                    rotations[fi, j] = data_block[k + c - 3:k + c]
+                    k += c
+            elif channels == 3:
                 positions[fi, 0:1] = data_block[0:3]
                 rotations[fi, :] = data_block[3:].reshape(N, 3)
             elif channels == 6:

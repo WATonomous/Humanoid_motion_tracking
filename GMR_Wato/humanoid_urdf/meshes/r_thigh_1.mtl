@@ -1,0 +1,7 @@
+newmtl r_thigh_1
+Kd 0.6040 0.6200 0.6430
+Ka 0 0 0
+Ks 0.04 0.04 0.04
+Ns 20
+d 1
+illum 2
