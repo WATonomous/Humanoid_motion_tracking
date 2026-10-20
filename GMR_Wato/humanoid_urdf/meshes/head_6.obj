@@ -1,6 +1,6 @@
 # https://github.com/mikedh/trimesh
-mtllib torso_11.mtl
-usemtl torso_11
+mtllib head_6.mtl
+usemtl head_6
 v -0.0000 -86.5706 1578.5895
 v 0.0000 -85.1377 1580.7182
 v 87.0516 22.8700 1521.3900

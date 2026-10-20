@@ -1,5 +1,5 @@
-newmtl torso_9
-Kd 0.7250 0.7450 0.7730
+newmtl neck_link_0
+Kd 0.1690 0.1760 0.1920
 Ka 0 0 0
 Ks 0.04 0.04 0.04
 Ns 20

@@ -1,10 +1,12 @@
 # Joint proof (MuJoCo forward kinematics)
 
-67 joints, 68 bodies. Each joint alone at 60 % of its range; its child link must turn by that angle and its parent must stay still.
+69 joints, 70 bodies. Each joint alone at 60 % of its range; its child link must turn by that angle and its parent must stay still.
 
 | joint | range (deg) | tested (deg) | child link | child turned (deg) | farthest link moved (mm) | links driven | result |
 |---|---|---|---|---|---|---|---|
-| waist_yaw | -90 .. 90 | 54 | torso | 54.0 | 268 | 55 | PASS |
+| waist_yaw | -90 .. 90 | 54 | torso | 54.0 | 268 | 57 | PASS |
+| neck_yaw | -70 .. 70 | 42 | neck_link | 42.0 | 0 | 2 | PASS |
+| neck_pitch | -20 .. 30 | 18 | head | 18.0 | 0 | 1 | PASS |
 | r_shoulder_pitch | -180 .. 180 | 108 | r_arm_link1 | 108.0 | 1400 | 27 | PASS |
 | r_shoulder_roll | -90 .. 90 | 54 | r_arm_link2 | 54.0 | 786 | 26 | PASS |
 | r_upper_arm_yaw | -90 .. 90 | 54 | r_arm_link3 | 54.0 | 85 | 25 | PASS |
@@ -62,14 +64,56 @@
 | Hip_F_L | -20 .. 90 | 54 | l_hip_pitch_link | 54.0 | 730 | 6 | PASS |
 | Hip_A_L | -10 .. 60 | 36 | l_hip_roll_link | 36.0 | 497 | 5 | PASS |
 | Hip_R_L | -30 .. 90 | 54 | l_thigh | 54.0 | 6 | 4 | PASS |
-| Knee_L | -60 .. 5 | -36 | l_shank_foot | 36.0 | 254 | 3 | PASS |
+| Knee_L | -65 .. 0 | -39 | l_shank_foot | 39.0 | 275 | 3 | PASS |
 | Ankle_P_L | -30 .. 50 | 30 | l_ankle_cross | 30.0 | 9 | 2 | PASS |
-| Ankle_R_L | -30 .. 30 | 18 | l_foot | 18.0 | 0 | 1 | PASS |
+| Ankle_R_L | -15 .. 15 | 9 | l_foot | 9.0 | 0 | 1 | PASS |
 | Hip_F_R | -20 .. 90 | 54 | r_hip_pitch_link | 54.0 | 730 | 6 | PASS |
 | Hip_A_R | -10 .. 60 | 36 | r_hip_roll_link | 36.0 | 497 | 5 | PASS |
 | Hip_R_R | -30 .. 90 | 54 | r_thigh | 54.0 | 6 | 4 | PASS |
-| Knee_R | -60 .. 5 | -36 | r_shank_foot | 36.0 | 254 | 3 | PASS |
+| Knee_R | -65 .. 0 | -39 | r_shank_foot | 39.0 | 275 | 3 | PASS |
 | Ankle_P_R | -30 .. 50 | 30 | r_ankle_cross | 30.0 | 9 | 2 | PASS |
-| Ankle_R_R | -30 .. 30 | 18 | r_foot | 18.0 | 0 | 1 | PASS |
+| Ankle_R_R | -15 .. 15 | 9 | r_foot | 9.0 | 0 | 1 | PASS |
 
-**67 of 67 pass.**
+**69 of 69 pass.**
+
+## Mirror test
+
+Each left joint and its right twin at the same angle: the right side must move as the left side's mirror image. Error: the largest gap between a right link's move and its left twin's, mirrored.
+
+| left | right | angle (deg) | mirror error (mm) | result |
+|---|---|---|---|---|
+| l_shoulder_pitch | r_shoulder_pitch | 108 | 0.00 | PASS |
+| l_shoulder_roll | r_shoulder_roll | 54 | 0.00 | PASS |
+| l_upper_arm_yaw | r_upper_arm_yaw | 54 | 0.00 | PASS |
+| l_elbow | r_elbow | 54 | 0.00 | PASS |
+| l_forearm_roll | r_forearm_roll | 54 | 0.00 | PASS |
+| l_wrist_dev | r_wrist_dev | 18 | 0.00 | PASS |
+| l_wrist_flex | r_wrist_flex | 36 | 0.00 | PASS |
+| l_abd | r_abd | 9 | 0.00 | PASS |
+| l_mcp | r_mcp | 54 | 0.00 | PASS |
+| l_pip | r_pip | 54 | 0.00 | PASS |
+| l_dip | r_dip | 54 | 0.00 | PASS |
+| l_i_abd | r_i_abd | 9 | 0.00 | PASS |
+| l_i_mcp | r_i_mcp | 54 | 0.00 | PASS |
+| l_i_pip | r_i_pip | 54 | 0.00 | PASS |
+| l_i_dip | r_i_dip | 54 | 0.00 | PASS |
+| l_r_abd | r_r_abd | 9 | 0.00 | PASS |
+| l_r_mcp | r_r_mcp | 54 | 0.00 | PASS |
+| l_r_pip | r_r_pip | 54 | 0.00 | PASS |
+| l_r_dip | r_r_dip | 54 | 0.00 | PASS |
+| l_l_abd | r_l_abd | 9 | 0.00 | PASS |
+| l_l_mcp | r_l_mcp | 54 | 0.00 | PASS |
+| l_l_pip | r_l_pip | 54 | 0.00 | PASS |
+| l_l_dip | r_l_dip | 54 | 0.00 | PASS |
+| l_th_c | r_th_c | 30 | 0.00 | PASS |
+| l_th_f | r_th_f | 36 | 0.00 | PASS |
+| l_th_mcp | r_th_mcp | 48 | 0.00 | PASS |
+| l_th_ip | r_th_ip | 48 | 0.00 | PASS |
+| Hip_F_L | Hip_F_R | 54 | 0.00 | PASS |
+| Hip_A_L | Hip_A_R | 36 | 0.00 | PASS |
+| Hip_R_L | Hip_R_R | 54 | 0.00 | PASS |
+| Knee_L | Knee_R | -39 | 0.00 | PASS |
+| Ankle_P_L | Ankle_P_R | 30 | 0.00 | PASS |
+| Ankle_R_L | Ankle_R_R | 9 | 0.00 | PASS |
+
+**33 of 33 pairs mirror.**

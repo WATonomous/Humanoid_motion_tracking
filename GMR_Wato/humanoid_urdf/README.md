@@ -5,7 +5,7 @@ The owner's final armV2 humanoid: the graphite SpaceX head (`spacex_traced_head.
 hand (8 DIP joints mimic their PIP), 6 a leg named as the team's model names them (`Hip_F` pitch, `Hip_A` roll, `Hip_R`
 yaw, `Knee`, `Ankle_P`, `Ankle_R`, `_L` / `_R`), with its axes and limits. Loads in MuJoCo
 (`pioneer_humanoid_mujoco.urdf`, 68 bodies, 67 dof). **Open question**: in the team's model (and so here) a negative
-`Knee` swings the shank forward, so its default stance (Knee -0.22) bends the knees backward: a sign to check with them. Likewise a positive `Hip_A` (hip roll, range -10..60 deg) swings the leg inward, across the other leg. Proof of every joint: `joint_proof.md` (67 of 67 move as they should, `joint_proof.py`) and `docs/renders/final_humanoid_joint_sheet.png`. Check render: `docs/renders/final_humanoid_urdf_check.png` (zero
+`Knee` swings the shank forward, so its default stance (Knee -0.22) bends the knees backward: a sign to check with them. Likewise a positive `Hip_A` (hip roll, range -10..60 deg) swings the leg inward, across the other leg. Proof of every joint: `joint_proof.md` (67 of 67 move as they should, `joint_proof.py`) and `docs/renders/final_humanoid_joint_sheet.png`. Check render: `docs/renders/archive/humanoid/final_humanoid_urdf_check.png` (zero
 pose and a posed one). The earlier URDF (version 1 head, no leg/waist joints beyond the knee and a guessed hip yaw) is
 archived in git history.
 
@@ -17,7 +17,7 @@ archived in git history.
     cd Backend && python cad_bench/projects/humanoid_urdf/make_urdf.py OUT     # ~3 min
 
 It needs build123d, trimesh and numpy (no GPU). Checked by loading it with `yourdfpy` and rendering it at the
-zero pose and a posed one: `docs/renders/humanoid_urdf_check.png`.
+zero pose and a posed one: `docs/renders/archive/humanoid/humanoid_urdf_check.png`.
 
 `view_urdf.py pioneer_humanoid.urdf out.png ['{"r_elbow": -1.0}'] [--dir x,y,z] [--look x,y,z] [--dist m]` path-traces the
 URDF's own meshes in a pose.
@@ -49,7 +49,7 @@ tells it where the meshes are. (MuJoCo refuses an STL of more than 200 000 faces
 | Hands: `*_wrist_dev`, `*_wrist_flex`, each finger's `abd`, `mcp`, `pip`, `dip`, thumb `th_c`, `th_f`, `th_mcp`, `th_ip` | `finger_drive.py`'s own `AXES`, `CHAIN` and ranges | exact. The left hand is mirrored with its axes reversed, so a positive angle curls both hands the same way. Finger names: no letter = middle, `i` index, `r` ring, `l` little |
 | Arms: `shoulder_pitch`, `shoulder_roll`, `upper_arm_yaw`, `elbow`, `forearm_roll` | each joint's motor in the arm STEP: the disc's thin dimension is the axis, its centre the pivot | axes and pivots good to a few mm; **limits are placeholders** |
 | Waist: `waist_yaw` | added (Oct 18, the owner): the torso, head, shoulder frame and arms on the pelvis, at z 897 | **no motor in the CAD yet**: the joint the design needs |
-| Legs: `Hip_F_*` (pitch), `Hip_A_*` (roll), `Hip_R_*` (yaw), `Knee_*`, `Ankle_P_*`, `Ankle_R_*` | the team's `whole_body_humanoid.urdf` (WATonomous/pioneer_humanoid): its names, chain, world axes and limits; its spacings land on this CAD's motors to a few mm (the hip pitch motor sits in the pelvis tube, absent from the leg STEP) | as the team's model |
+| Legs: `Hip_F_*` (pitch), `Hip_A_*` (roll), `Hip_R_*` (yaw), `Knee_*`, `Ankle_P_*`, `Ankle_R_*` | the team's `whole_body_humanoid.urdf` (WATonomous/pioneer_humanoid): its names, chain, world axes and limits (Knee -65..0 deg as Nick's PR #337, Ankle_R +-15 deg: the owner's Oct 20 limits); its spacings land on this CAD's motors to a few mm (the hip pitch motor sits in the pelvis tube, absent from the leg STEP) | as the team's model |
 
 ## Not done
 
@@ -62,7 +62,7 @@ tells it where the meshes are. (MuJoCo refuses an STL of more than 200 000 faces
   about that motor's axis from its underside.
 - The mesh paths are relative (`meshes/x.obj`): for ROS, wrap this folder in a package and prefix them.
 
-## The showcase videos (`showcase/`, `docs/renders/humanoid_*.mp4`)
+## The showcase videos (`showcase/`, `docs/renders/archive/humanoid/humanoid_*.mp4`)
 
 Five clips, all rendered from the URDF's meshes with no CAD per frame, on the sunlit plaza of
 `cad_bench/flight/pbr_flight.py` (2.3 s a frame at 1280 x 720, 48 samples, on an RTX 4060; `--scene studio` is the
